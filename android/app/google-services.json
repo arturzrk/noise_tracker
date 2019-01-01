@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "256894176157",
+    "firebase_url": "https://noiserecorder-4713e.firebaseio.com",
+    "project_id": "noiserecorder-4713e",
+    "storage_bucket": "noiserecorder-4713e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256894176157:android:955117735405b44e",
+        "android_client_info": {
+          "package_name": "com.zayasoft.noiserecorder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256894176157-l81aaaam2fbio2s1a5hebnc4n15kmkqp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2qFVh1PEXQkXDXq2vFkFTQNu-NcKIhQs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:noise_recorder/noise_categories.dart';
+import 'package:noise_recorder/model/noise_category.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:noise_recorder/routes/category_route.dart';
 
@@ -10,7 +10,6 @@ class SettingsRoute extends StatefulWidget {
 
   @override
   SettingsRouteState createState() {
-    // TODO: implement createState
     return SettingsRouteState();
   }
 }
@@ -18,14 +17,22 @@ class SettingsRoute extends StatefulWidget {
 class SettingsRouteState extends State<SettingsRoute> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Noise categories"),
-        ),
-        body: ListView(
-          children: buildListItems(),
-        ));
+      appBar: AppBar(
+        title: Text("Noise categories"),
+      ),
+      body: ListView(
+        children: buildListItems(),
+      ),
+      floatingActionButton: Builder(
+        builder: (BuildContext context) {
+          return FloatingActionButton(
+            onPressed: () => onAddPressed(context),
+            child: Icon(Icons.add),
+          );
+        }
+      ),
+    );
   }
 
   List<Widget> buildListItems() {
@@ -54,13 +61,13 @@ class SettingsRouteState extends State<SettingsRoute> {
 
   List<Widget> _slideActions(NoiseCategory category) {
     return <Widget>[
-        IconSlideAction(
-          color: Colors.red,
-          caption: "Delete",
-          icon: Icons.delete,
-          onTap: () => _deleteCategory(category),
-        ),
-      ];
+      IconSlideAction(
+        color: Colors.red,
+        caption: "Delete",
+        icon: Icons.delete,
+        onTap: () => _deleteCategory(category),
+      ),
+    ];
   }
 
   void _deleteCategory(NoiseCategory category) {
@@ -71,14 +78,18 @@ class SettingsRouteState extends State<SettingsRoute> {
   }
 
   void _categoryTapped(NoiseCategory category) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) {
-              return CategoryRoute(category: category);
-            }
-        )
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return CategoryRoute(category: category);
+    }));
+  }
+
+  void onAddPressed(context) {
+    NoiseCategory newCategory = NoiseCategory();
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return CategoryRoute(category: newCategory);
+    }));
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text('Category added.'),
+    ));
   }
 }
-

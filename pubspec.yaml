@@ -15,8 +15,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   flutter_slidable: ^0.4.9
   cupertino_icons: ^0.1.2
+  flutter_simple_dependency_injection: any
+  firebase_core: ^0.2.5+1
+  cloud_firestore: ^0.8.2+1
+  mockito: ^4.0.0
 
 dev_dependencies:
   flutter_test:

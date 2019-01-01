@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:noise_recorder/noise_categories.dart';
+import 'package:flutter_simple_dependency_injection/injector.dart';
+import 'package:noise_recorder/app_config.dart';
+import 'package:noise_recorder/model/noise_category.dart';
 import 'package:noise_recorder/routes/settings_route.dart';
-
-void main() => runApp(MyApp());
+import 'package:noise_recorder/services/noise_category/noise_service.dart';
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var config = AppConfig.of(context);
     return MaterialApp(
-      title: 'Noise-R',
+      title: config.appTitle,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: "Raleway",
       ),
       home: HomePage(
-        title: 'Noise-R',
+        title: config.appTitle,
         noiseCategories: NoiseCategory.configuredCategories,
       ),
     );
@@ -32,6 +34,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  final NoiseService _noiseService = Injector.getInjector().get<NoiseService>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,14 +51,26 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: buildButtonGrid(),
+      body: buildBody(),
     );
   }
 
-  GridView buildButtonGrid() {
+  Widget buildButtonGrid(List<NoiseCategory> _categories) {
     return GridView.count(
       crossAxisCount: 2,
-      children: buildButtonsFromList(NoiseCategory.configuredCategories),
+      children: buildButtonsFromList(_categories),
+    );
+  }
+
+  Widget buildBody() {
+    return StreamBuilder<List<NoiseCategory>>(
+      stream: _noiseService.getAll(),
+      builder: (context, snapshot) {
+        if(!snapshot.hasData)
+          return
+            LinearProgressIndicator();
+        return buildButtonGrid(snapshot.data);
+      }
     );
   }
 

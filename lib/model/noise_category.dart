@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NoiseCategory {
-  final name;
+  DocumentReference reference;
+  String name;
   final Color color;
   static List<NoiseCategory> configuredCategories = [
     NoiseCategory(name: "Normal work", color: Colors.green),
@@ -13,6 +14,6 @@ class NoiseCategory {
     NoiseCategory(name: "leg stretching"),
     NoiseCategory(name: "sms"),
   ];
-  NoiseCategory({@required this.name, this.color});
+  NoiseCategory({this.reference, this.name, this.color});
 }
 
